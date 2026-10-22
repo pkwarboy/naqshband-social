@@ -1,327 +1,875 @@
-/* Naqshband â€” Official Social Links
-   Palette and type follow the naqshband.org manuscript system:
-   ink teal, antique gold, oxblood, parchment. */
+
+/* =========================================
+   NAQSHBAND SOCIAL
+   Emerald green + traditional gold theme
+   ========================================= */
 
 :root {
-  --ink: #0a281e;
-  --teal: #123c2d;
-  --teal-lift: #1d5039;
-  --gold: #d9b66d;
-  --gold-soft: #d9b66d55;
-  --oxblood: #7a1f2b;
-  --parchment: #f6edd6;
-  --parchment-dim: #d9ceb4;
-
-  --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --nastaliq: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
-
-  --edge: max(18px, env(safe-area-inset-left, 0px));
+  --green-deep: #032c24;
+  --green-dark: #063b30;
+  --green-main: #084638;
+  --green-light: #105b48;
+  --green-panel: rgba(5, 47, 38, 0.91);
+  --gold: #d8b454;
+  --gold-light: #f0d68c;
+  --gold-dark: #a98430;
+  --white: #f8f7f0;
+  --muted: #c0cec5;
+  --border: rgba(216, 180, 84, 0.27);
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
 
 body {
   margin: 0;
   min-height: 100vh;
-  padding: 20px var(--edge) 40px;
-  display: flex;
-  justify-content: center;
-  font-family: var(--serif);
-  font-size: 19px;
-  line-height: 1.55;
-  color: var(--parchment);
+  overflow-x: hidden;
+  color: var(--white);
   background:
-    radial-gradient(ellipse 90% 50% at 50% 0%, var(--teal-lift) 0%, transparent 70%),
-    linear-gradient(180deg, var(--teal) 0%, var(--ink) 100%);
-  background-attachment: fixed;
+    radial-gradient(ellipse at 80% 12%, rgba(19, 91, 70, 0.34), transparent 38%),
+    radial-gradient(ellipse at 10% 58%, rgba(15, 79, 61, 0.25), transparent 36%),
+    linear-gradient(145deg, var(--green-dark), var(--green-deep) 80%);
+  font-family: "Inter", Arial, sans-serif;
+  line-height: 1.7;
 }
 
-/* Faint lattice behind everything, echoing manuscript margins */
-body::before {
-  content: "";
+body:lang(ur) {
+  font-family: "Noto Nastaliq Urdu", serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 5px;
+}
+
+/* Subtle geometric Islamic background */
+.background-pattern {
   position: fixed;
   inset: 0;
+  z-index: -1;
   pointer-events: none;
-  opacity: .05;
+  opacity: 0.075;
   background-image:
-    linear-gradient(45deg, var(--gold) 1px, transparent 1px),
-    linear-gradient(-45deg, var(--gold) 1px, transparent 1px);
-  background-size: 44px 44px;
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 28px,
+      var(--gold) 29px,
+      transparent 30px,
+      transparent 58px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 28px,
+      var(--gold) 29px,
+      transparent 30px,
+      transparent 58px
+    );
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
 }
 
-.page {
+/* Header */
+
+.site-header {
   position: relative;
-  width: 100%;
-  max-width: 480px;
-}
-
-/* Language switch */
-.lang {
+  z-index: 2;
   display: flex;
-  justify-content: flex-end;
-  gap: 6px;
-  margin-bottom: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(1240px, calc(100% - 48px));
+  min-height: 98px;
+  margin: 0 auto;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.lang button {
-  font: inherit;
-  font-size: 15px;
-  padding: 4px 14px;
-  color: var(--parchment-dim);
-  background: transparent;
-  border: 1px solid var(--gold-soft);
-  border-radius: 999px;
-  cursor: pointer;
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
 }
 
-.lang button[lang="ur"] { font-family: var(--nastaliq); font-size: 14px; padding-top: 8px; }
-
-.lang button[aria-pressed="true"] {
-  color: var(--ink);
-  background: var(--gold);
-  border-color: var(--gold);
+.brand img {
+  display: block;
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 9px rgba(0, 0, 0, 0.18));
 }
 
-.lang button:focus-visible,
-.entry:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-/* Masthead: the medallion is the one memorable element */
-.masthead {
-  text-align: center;
-  padding: 10px 0 26px;
-}
-
-.medallion {
-  position: relative;
-  width: 168px;
-  height: 168px;
-  margin: 0 auto 18px;
-}
-
-.medallion svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.medallion .star-outer { transform-origin: 50% 50%; animation: turn 90s linear infinite; }
-.medallion .star-inner { transform-origin: 50% 50%; animation: turn 60s linear infinite reverse; }
-
-@keyframes turn { to { transform: rotate(360deg); } }
-
-.medallion .seal {
-  position: absolute;
-  inset: 30px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--ink);
-  box-shadow: 0 0 0 2px var(--gold), 0 0 0 7px var(--ink), 0 0 0 8px var(--gold-soft);
-}
-
-.medallion img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.medallion .crescent {
-  display: none;
-  font-size: 54px;
-  line-height: 1;
-  color: var(--gold);
-}
-
-.medallion.no-logo .crescent { display: block; }
-.medallion.no-logo img { display: none; }
-
-h1 {
-  margin: 0;
-  font-weight: 600;
-  font-size: clamp(38px, 11vw, 52px);
-  line-height: 1.05;
-  letter-spacing: .01em;
-  color: var(--gold);
-}
-
-.place {
-  margin: 8px 0 0;
-  font-size: 20px;
-  font-style: italic;
-  color: var(--parchment);
-}
-
-.urdu-line {
-  margin: 14px 0 0;
-  font-family: var(--nastaliq);
+.brand-text strong {
+  color: var(--gold-light);
+  font-family: "Noto Nastaliq Urdu", "Amiri", serif;
   font-size: 22px;
-  line-height: 2.1;
-  color: var(--gold);
+  font-weight: 700;
+  line-height: 1.8;
 }
 
-.rule {
+.brand-text small {
+  color: var(--muted);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 1.3px;
+}
+
+.header-actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 18px auto 0;
-  max-width: 260px;
-  color: var(--gold);
 }
 
-.rule::before, .rule::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+.language-toggle {
+  min-height: 42px;
+  padding: 8px 17px;
+  color: var(--gold-light);
+  background: rgba(216, 180, 84, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
 }
 
-.rule i {
-  width: 8px;
-  height: 8px;
+.language-toggle:hover {
+  color: var(--green-deep);
   background: var(--gold);
-  transform: rotate(45deg);
 }
 
-.intro {
-  margin: 0 0 20px;
-  text-align: center;
-  color: var(--parchment-dim);
+.header-website {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 9px 17px;
+  color: var(--green-deep);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  border: 1px solid var(--gold-light);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-/* Channels: written like entries in a register, with a gold spine */
-.channels {
+.header-website:hover,
+.gold-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(216, 180, 84, 0.18);
+}
+
+/* Hero */
+
+.hero {
   display: grid;
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  align-items: center;
+  gap: 44px;
+  width: min(1120px, calc(100% - 48px));
+  min-height: 460px;
+  margin: 0 auto;
+  padding: 65px 0 56px;
 }
 
-.entry {
-  position: relative;
+.hero-content {
+  max-width: 680px;
+}
+
+.eyebrow {
   display: flex;
   align-items: center;
-  gap: 16px;
-  min-height: 84px;
-  padding: 14px 18px 14px 22px;
-  color: var(--parchment);
-  text-decoration: none;
-  background: linear-gradient(100deg, #f6edd614, #f6edd605);
-  border: 1px solid var(--gold-soft);
-  border-radius: 4px 20px 4px 20px;
-  transition: background .2s ease, border-color .2s ease;
-}
-
-.entry::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 10px;
-  bottom: 10px;
-  width: 3px;
-  background: var(--spine, var(--gold));
-  border-radius: 0 3px 3px 0;
-}
-
-.entry:hover {
-  background: linear-gradient(100deg, #f6edd622, #f6edd60a);
-  border-color: var(--gold);
-}
-
-.entry:active { background: #f6edd62a; }
-
-.glyph {
-  flex: 0 0 46px;
-  width: 46px;
-  height: 46px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: #fff;
-  background: var(--spine);
-}
-
-.glyph svg { width: 24px; height: 24px; fill: currentColor; }
-
-.words { flex: 1; min-width: 0; }
-
-.name {
-  display: block;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--parchment);
-}
-
-.note {
-  display: block;
-  margin-top: 2px;
-  font-size: 16px;
-  color: var(--parchment-dim);
-}
-
-.go {
-  flex: 0 0 auto;
-  font-size: 15px;
-  font-style: italic;
+  gap: 12px;
+  margin-bottom: 20px;
   color: var(--gold);
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-size: 14px;
 }
 
-.facebook  { --spine: #1877f2; }
-.whatsapp  { --spine: #168b53; }
-.youtube   { --spine: #c4302b; }
-.instagram { --spine: #b0397a; }
-
-/* Footer */
-.colophon {
-  margin-top: 30px;
-  padding-top: 18px;
-  text-align: center;
-  font-size: 16px;
-  color: var(--parchment-dim);
-  border-top: 1px solid var(--gold-soft);
+.eyebrow-line {
+  width: 30px;
+  height: 1px;
+  background: var(--gold-dark);
 }
 
-.colophon strong { font-weight: 600; color: var(--gold); }
+.hero h1 {
+  margin: 0 0 20px;
+  color: var(--white);
+  font-family: "Noto Nastaliq Urdu", "Amiri", serif;
+  font-size: clamp(28px, 4vw, 43px);
+  font-weight: 700;
+  line-height: 2;
+  text-wrap: balance;
+}
 
-.colophon p { margin: 0 0 4px; }
+html[lang="en"] .hero h1 {
+  font-family: "Amiri", Georgia, serif;
+  line-height: 1.25;
+}
 
-/* Urdu mode */
-[dir="rtl"] body,
-body.is-ur {
-  font-family: var(--nastaliq);
+.hero-description {
+  max-width: 600px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
   line-height: 2.1;
 }
 
-body.is-ur h1 { font-family: var(--serif); }
-body.is-ur .place { font-style: normal; }
-body.is-ur .name { font-size: 22px; line-height: 1.9; }
-body.is-ur .note { font-size: 15px; line-height: 2; }
-body.is-ur .go { font-style: normal; }
-body.is-ur .entry { border-radius: 20px 4px 20px 4px; padding: 14px 22px 14px 18px; }
-body.is-ur .entry::before { left: auto; right: 0; border-radius: 3px 0 0 3px; }
-body.is-ur .intro, body.is-ur .colophon { line-height: 2.1; }
-
-/* English/Urdu text swapping */
-body:not(.is-ur) [data-lang="ur"] { display: none; }
-body.is-ur [data-lang="en"] { display: none; }
-
-/* One entrance on load, switched off for reduced motion */
-.masthead { animation: settle .9s ease-out both; }
-@keyframes settle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
-@media (prefers-reduced-motion: reduce) {
-  .medallion .star-outer, .medallion .star-inner, .masthead { animation: none; }
-  .entry { transition: none; }
+html[lang="en"] .hero-description {
+  line-height: 1.9;
 }
 
-@media (max-width: 380px) {
-  body { font-size: 18px; }
-  .medallion { width: 148px; height: 148px; }
-  .medallion .seal { inset: 27px; }
-  .entry { gap: 12px; padding-right: 14px; }
-  .go { display: none; }
+.hero-actions {
+  display: flex;
+  margin-top: 28px;
+}
+
+.gold-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  min-height: 49px;
+  padding: 11px 22px;
+  color: var(--green-deep);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  border: 1px solid var(--gold-light);
+  border-radius: 4px;
+  font-family: "Noto Nastaliq Urdu", "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+html[lang="en"] .gold-button {
+  font-family: "Inter", sans-serif;
+}
+
+.hero-ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 190px;
+  margin-top: 32px;
+  color: var(--gold);
+}
+
+.hero-ornament span {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dark));
+}
+
+.hero-ornament span:last-child {
+  background: linear-gradient(90deg, var(--gold-dark), transparent);
+}
+
+.hero-ornament i {
+  font-size: 17px;
+  font-style: normal;
+}
+
+/* Decorative emblem */
+
+.hero-emblem {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 350px);
+  aspect-ratio: 1;
+  justify-self: center;
+}
+
+.emblem-ring {
+  position: absolute;
+  inset: 8%;
+  border: 1px solid rgba(216, 180, 84, 0.55);
+  transform: rotate(45deg);
+}
+
+.emblem-ring-outer {
+  border-radius: 26%;
+  box-shadow: 0 0 40px rgba(216, 180, 84, 0.06);
+}
+
+.emblem-ring-middle {
+  inset: 17%;
+  border-radius: 50%;
+  transform: rotate(0);
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.emblem-center {
+  display: grid;
+  place-items: center;
+  width: 53%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  padding: 18px;
+  background:
+    radial-gradient(circle, rgba(15, 91, 70, 0.95), rgba(3, 44, 36, 0.96));
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 9px rgba(216, 180, 84, 0.045),
+    0 0 0 18px rgba(216, 180, 84, 0.025),
+    0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.emblem-center img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.emblem-star {
+  position: absolute;
+  color: var(--gold);
+  font-size: 23px;
+}
+
+.star-one {
+  top: 3%;
+  left: 47%;
+}
+
+.star-two {
+  top: 47%;
+  right: 1%;
+}
+
+.star-three {
+  bottom: 3%;
+  left: 47%;
+}
+
+.star-four {
+  top: 47%;
+  left: 1%;
+}
+
+/* Social links */
+
+.social-section {
+  position: relative;
+  padding: 58px 24px 70px;
+  background: rgba(1, 27, 22, 0.37);
+  border-top: 1px solid rgba(216, 180, 84, 0.13);
+  border-bottom: 1px solid rgba(216, 180, 84, 0.13);
+}
+
+.section-heading {
+  max-width: 760px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.section-kicker {
+  color: var(--gold);
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-size: 13px;
+}
+
+.section-heading h2 {
+  margin: 12px 0 10px;
+  color: var(--white);
+  font-family: "Noto Nastaliq Urdu", "Amiri", serif;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 2;
+}
+
+html[lang="en"] .section-heading h2 {
+  font-family: "Amiri", Georgia, serif;
+  line-height: 1.4;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.social-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  min-height: 105px;
+  padding: 20px 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(15, 78, 60, 0.88), rgba(4, 49, 39, 0.92));
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.social-card::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  content: "";
+  background: var(--gold-dark);
+  opacity: 0.65;
+  transition: width 200ms ease, opacity 200ms ease;
+}
+
+.social-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(240, 214, 140, 0.7);
+  background: linear-gradient(120deg, rgba(17, 91, 69, 0.97), rgba(5, 58, 45, 0.97));
+  box-shadow: var(--shadow);
+}
+
+.social-card:hover::before {
+  width: 5px;
+  opacity: 1;
+}
+
+.social-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  color: var(--gold-light);
+  background: rgba(216, 180, 84, 0.08);
+  border: 1px solid rgba(216, 180, 84, 0.24);
+  border-radius: 4px;
+}
+
+.social-icon svg {
+  display: block;
+  width: 23px;
+  height: 23px;
+  fill: currentColor;
+}
+
+.website-card .social-icon svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.social-copy strong {
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.social-copy small {
+  color: var(--muted);
+  font-family: "Noto Nastaliq Urdu", "Inter", sans-serif;
+  font-size: 11px;
+  line-height: 2;
+}
+
+html[lang="en"] .social-copy small {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.social-arrow {
+  align-self: center;
+  color: var(--gold);
+  font-size: 20px;
+  transition: transform 200ms ease;
+}
+
+html[dir="rtl"] .social-arrow {
+  transform: scaleX(-1);
+}
+
+.social-card:hover .social-arrow {
+  transform: translate(3px, -3px);
+}
+
+html[dir="rtl"] .social-card:hover .social-arrow {
+  transform: scaleX(-1) translate(3px, -3px);
+}
+
+/* Quran message panel */
+
+.message-panel {
+  position: relative;
+  width: min(900px, calc(100% - 48px));
+  margin: 58px auto;
+  padding: 35px 24px;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(12, 73, 56, 0.6), rgba(3, 44, 36, 0.65));
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.message-ornament {
+  margin-bottom: 10px;
+  color: var(--gold);
+  font-size: 24px;
+}
+
+.message-arabic {
+  margin: 0 0 14px;
+  color: var(--gold-light);
+  font-family: "Amiri", serif;
+  font-size: clamp(27px, 4vw, 37px);
+  line-height: 1.7;
+}
+
+.message-translation {
+  margin: 0 0 8px;
+  color: var(--white);
+  font-family: "Noto Nastaliq Urdu", "Inter", sans-serif;
+  font-size: 15px;
+  line-height: 2.2;
+}
+
+html[lang="en"] .message-translation {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.message-reference {
+  color: var(--gold);
+  font-size: 12px;
+}
+
+/* Footer */
+
+.site-footer {
+  padding: 30px 24px 26px;
+  text-align: center;
+  background: rgba(1, 24, 20, 0.45);
+  border-top: 1px solid rgba(216, 180, 84, 0.15);
+}
+
+.footer-brand {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.site-footer p {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-family: "Noto Nastaliq Urdu", "Inter", sans-serif;
+  font-size: 12px;
+}
+
+html[lang="en"] .site-footer p {
+  font-family: "Inter", sans-serif;
+}
+
+.site-footer .copyright {
+  margin-top: 16px;
+  color: #92a99d;
+  font-size: 11px;
+}
+
+/* Tablet */
+
+@media (max-width: 800px) {
+  .site-header {
+    width: calc(100% - 36px);
+    min-height: 84px;
+  }
+
+  .brand img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .brand-text strong {
+    font-size: 18px;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 20px;
+    width: calc(100% - 40px);
+    min-height: 400px;
+    padding: 48px 0;
+  }
+
+  .hero-emblem {
+    width: 230px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .hero-description {
+    font-size: 13px;
+  }
+
+  .social-grid {
+    gap: 12px;
+  }
+
+  .social-card {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .social-icon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 560px) {
+  .site-header {
+    align-items: center;
+    gap: 12px;
+    width: calc(100% - 28px);
+    min-height: 76px;
+    padding: 12px 0;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .brand-text strong {
+    font-size: 15px;
+  }
+
+  .brand-text small {
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .header-actions {
+    gap: 7px;
+  }
+
+  .language-toggle {
+    min-height: 37px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .header-website {
+    min-height: 37px;
+    gap: 5px;
+    padding: 6px 9px;
+    font-size: 10px;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 26px;
+    width: calc(100% - 34px);
+    padding: 36px 0 42px;
+    text-align: center;
+  }
+
+  .hero-emblem {
+    width: 190px;
+    flex-shrink: 0;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+
+  .eyebrow {
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 11px;
+  }
+
+  .eyebrow-line {
+    width: 18px;
+  }
+
+  .hero h1 {
+    margin-bottom: 14px;
+    font-size: 26px;
+    line-height: 1.9;
+  }
+
+  html[lang="en"] .hero h1 {
+    font-size: 31px;
+    line-height: 1.25;
+  }
+
+  .hero-description {
+    font-size: 12px;
+    line-height: 2.1;
+  }
+
+  html[lang="en"] .hero-description {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    margin-top: 22px;
+  }
+
+  .gold-button {
+    min-height: 45px;
+    padding: 9px 17px;
+    font-size: 12px;
+  }
+
+  .hero-ornament {
+    margin: 25px auto 0;
+  }
+
+  .social-section {
+    padding: 40px 17px 45px;
+  }
+
+  .section-heading {
+    margin-bottom: 25px;
+  }
+
+  .section-kicker {
+    font-size: 11px;
+  }
+
+  .section-heading h2 {
+    font-size: 21px;
+    line-height: 1.9;
+  }
+
+  html[lang="en"] .section-heading h2 {
+    font-size: 25px;
+  }
+
+  .section-heading p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  .social-grid {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .social-card {
+    min-height: 86px;
+    padding: 15px;
+  }
+
+  .social-icon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .social-copy strong {
+    font-size: 14px;
+  }
+
+  .social-copy small {
+    font-size: 10px;
+  }
+
+  html[lang="en"] .social-copy small {
+    font-size: 11px;
+  }
+
+  .message-panel {
+    width: calc(100% - 34px);
+    margin: 35px auto;
+    padding: 27px 16px;
+  }
+
+  .message-arabic {
+    font-size: 29px;
+  }
+
+  .message-translation {
+    font-size: 12px;
+  }
+
+  .site-footer {
+    padding: 26px 15px 22px;
+  }
+}
+
+/* Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
